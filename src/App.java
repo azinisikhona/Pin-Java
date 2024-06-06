@@ -1,66 +1,49 @@
 import java.util.Scanner;
-import java.util.InputMismatchException;
 
 public class App {
 
-    int validPin = 2002, enteredPin, attempts = 1, delaySecs = 5;
-    boolean isValidInput;
-    Scanner input = new Scanner(System.in);
-
-    public void validateInput() {
-        while (!isValidInput) {
-            System.out.println("Please enter your pin: ");
-            if (input.hasNextInt()) {
-                enteredPin = input.nextInt();
-                isValidInput = true;
-            } else {
-                System.out.println("Invalid input. Please enter an integer.");
-                input.next();
-            }
-        }
-    }
-
-    public void trial() {
-        validateInput();
-
-        while (enteredPin != validPin) {
-            if (attempts <= 2) {
-                System.out.println("You have entered an invalid pin!!!");
-                isVallidInput = false;
-                validateInput();
-            } else if (attempts == 3) {
-                try {
-                    System.out.println("Incorrect pin!!! 2 attempts left");
-                    System.out.println("Please wait " + delaySecs + " seconds");
-                    Thread.sleep(delaySecs * 1000);
-                    isVallidInput = false;
-                    validateInput();
-                } catch (InterruptedException e) {
-                    System.out.println("An error has occured " + e);
-                }
-            } else if (attempts == 4) {
-                try {
-                    System.out.println("Incorrect pin!!! 1 attempts left");
-                    System.out.println("Please wait " + delaySecs * 2 + " seconds");
-                    Thread.sleep(delaySecs * 2000);
-                    isVallidInput = false;
-                    validateInput();
-                } catch (InterruptedException e) {
-                    System.out.println("An error has occured " + e);
-                }
-            } else {
-                System.out.println("You have inputed a wrong pin too many times, your account has been suspended");
-                break;
-            }
-            attempts++;
-        }
-        if (enteredPin == validPin) {
-            System.out.println("Welcome to your account");
-        }
-    }
-
     public static void main(String[] args) throws Exception {
-        App log = new App();
-        log.trial();
+        Scanner input = new Scanner(System.in);
+        Login user = new Login();
+
+        System.out.println("Do you have an account with us (y/n): ");
+        char opt = input.next().charAt(0);
+        if (opt == 'y') {
+            user.trial();
+            user.customer.accountDetails();
+
+            System.out.println("Would you like to make a withdrawal or deposit(w/d):");
+            opt = input.next().charAt(0);
+            if (opt == 'd') {
+                user.customer.depositFunds();
+            } else if (opt == 'w') {
+                user.customer.withdrawFunds();
+            }
+
+            System.out.println("Welcome, Izumi Miyamura to your account");
+            System.out.println("Available balance: " + user.customer.balance + "\n");
+            System.out.println("Thank you for banking with us");
+        } else if (opt == 'n') {
+            user.customer.createAccount();
+            System.out.println("Do you want to login to your account(y/n): ");
+            opt = input.next().charAt(0);
+            if (opt == 'y') {
+                user.trial();
+                user.customer.newAccountDetails();
+            } else if (opt == 'n') {
+                System.out.println("Have a good day");
+            }
+
+            System.out.println("Would you like to make a withdrawal or deposit(w/d):");
+            opt = input.next().charAt(0);
+            if (opt == 'd') {
+                user.customer.depositFunds();
+            } else if (opt == 'w') {
+                user.customer.withdrawFunds();
+            }
+            
+            user.customer.newAccountDetails();
+        }
+        input.close();
     }
 }

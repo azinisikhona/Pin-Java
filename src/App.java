@@ -9,7 +9,6 @@ public class App {
 
     public void validateInput() {
         while (!isValidInput) {
-            isValidInput = false;
             System.out.println("Please enter your pin: ");
             if (input.hasNextInt()) {
                 enteredPin = input.nextInt();
@@ -27,15 +26,15 @@ public class App {
         while (enteredPin != validPin) {
             if (attempts <= 2) {
                 System.out.println("You have entered an invalid pin!!!");
-                System.out.print("Please try again: ");
-                enteredPin = input.nextInt();
+                isVallidInput = false;
+                validateInput();
             } else if (attempts == 3) {
                 try {
                     System.out.println("Incorrect pin!!! 2 attempts left");
                     System.out.println("Please wait " + delaySecs + " seconds");
                     Thread.sleep(delaySecs * 1000);
-                    System.out.print("Please try again: ");
-                    enteredPin = input.nextInt();
+                    isVallidInput = false;
+                    validateInput();
                 } catch (InterruptedException e) {
                     System.out.println("An error has occured " + e);
                 }
@@ -44,8 +43,8 @@ public class App {
                     System.out.println("Incorrect pin!!! 1 attempts left");
                     System.out.println("Please wait " + delaySecs * 2 + " seconds");
                     Thread.sleep(delaySecs * 2000);
-                    System.out.print("Please try again: ");
-                    enteredPin = input.nextInt();
+                    isVallidInput = false;
+                    validateInput();
                 } catch (InterruptedException e) {
                     System.out.println("An error has occured " + e);
                 }

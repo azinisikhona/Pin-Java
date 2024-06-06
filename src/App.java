@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.InputMismatchException;
 
 public class App {
 
@@ -9,12 +8,12 @@ public class App {
 
     public void validateInput() {
         while (!isValidInput) {
-            System.out.println("Please enter your pin: ");
+            System.out.print("Please enter your pin: ");
             if (input.hasNextInt()) {
                 enteredPin = input.nextInt();
                 isValidInput = true;
             } else {
-                System.out.println("Invalid input. Please enter an integer.");
+                System.out.println("Invalid input. Please enter an integer.\n");
                 input.next();
             }
         }
@@ -26,14 +25,14 @@ public class App {
         while (enteredPin != validPin) {
             if (attempts <= 2) {
                 System.out.println("You have entered an invalid pin!!!");
-                isVallidInput = false;
+                isValidInput = false;
                 validateInput();
             } else if (attempts == 3) {
                 try {
                     System.out.println("Incorrect pin!!! 2 attempts left");
-                    System.out.println("Please wait " + delaySecs + " seconds");
+                    System.out.println("Please wait " + delaySecs + " seconds\n");
                     Thread.sleep(delaySecs * 1000);
-                    isVallidInput = false;
+                    isValidInput = false;
                     validateInput();
                 } catch (InterruptedException e) {
                     System.out.println("An error has occured " + e);
@@ -41,9 +40,9 @@ public class App {
             } else if (attempts == 4) {
                 try {
                     System.out.println("Incorrect pin!!! 1 attempts left");
-                    System.out.println("Please wait " + delaySecs * 2 + " seconds");
+                    System.out.println("Please wait " + delaySecs * 2 + " seconds\n");
                     Thread.sleep(delaySecs * 2000);
-                    isVallidInput = false;
+                    isValidInput = false;
                     validateInput();
                 } catch (InterruptedException e) {
                     System.out.println("An error has occured " + e);

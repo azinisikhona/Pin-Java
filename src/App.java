@@ -21,7 +21,7 @@ public class App {
             }
 
             System.out.println("Welcome, Izumi Miyamura to your account");
-            System.out.println("Available balance: " + user.customer.balance + "\n");
+            System.out.println("Available balance: R" + user.customer.balance + "\n");
             System.out.println("Thank you for banking with us");
         } else if (opt == 'n') {
             user.customer.createAccount();
